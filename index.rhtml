@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script>
+            var ws = new WebSocket("ws://localhost:8080")
+            ws.onopen = function (evt) {
+                ws.send("Ola mundo cruel!");
+            }
+            ws.onmessage = function(evt) {
+                console.log(evt.data);
+            }
+        </script>
+    </head>
+    <body>
+        <p>Ola!</p>
+    </body>
+</html>

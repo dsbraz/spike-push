@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            jQuery(document).ready(function($) {
+                var ws = new WebSocket("ws://192.168.0.101:8080");
+                ws.onmessage = function(evt) {
+                    $("#show").html(evt.data);
+                }
+                $("#connect").click(function() {
+                    ws.send(JSON.stringify({
+                        'channel': $("#client_id").val(),
+                        'action': 'subscribe',
+                        'message': '',
+                    }));
+                });
+                $("#send").click(function() {
+                    ws.send(JSON.stringify({
+                        'channel': $("#server_id").val(),
+                        'action': 'publish',
+                        'message': $("#message").val(),
+                    }));
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <p id="show">Ola, mundo!</p>
+        FROM: <input type='text' id="client_id"> <br>
+        TO: <input type='text' id="server_id"> <br>
+        MESSAGE: <input type='text' id="message"> <br>
+        <input type="button" id="connect" value="connect">
+        <input type="button" id="send" value="send">
+    </body>
+</html>
